@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Web.Build.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Web", "LMS.Web\LMS.Web.csproj", "{5BB022DC-4AD1-4B37-B05E-3C81C5EE7723}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LMS.Web.Unit.Tests.Project", "LMS.Web.Unit.Tests.Project\LMS.Web.Unit.Tests.Project.csproj", "{3DA2E0C0-D476-46FF-B911-E11DA67C5134}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5BB022DC-4AD1-4B37-B05E-3C81C5EE7723}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BB022DC-4AD1-4B37-B05E-3C81C5EE7723}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BB022DC-4AD1-4B37-B05E-3C81C5EE7723}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DA2E0C0-D476-46FF-B911-E11DA67C5134}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DA2E0C0-D476-46FF-B911-E11DA67C5134}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DA2E0C0-D476-46FF-B911-E11DA67C5134}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DA2E0C0-D476-46FF-B911-E11DA67C5134}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
