@@ -2,12 +2,12 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-namespace LMS.Web.Unit.Tests.Project
+using LMS.Web.Models.Foundations.Users;
+
+namespace LMS.Web.Services.Foundations
 {
-    public class DeleteMe
+    public interface IUserService
     {
-        [Fact]
-        public void ShouldBeTrue()=>
-            Assert.True(true);
+        ValueTask<User> AddUserAsync(User user);
     }
 }
