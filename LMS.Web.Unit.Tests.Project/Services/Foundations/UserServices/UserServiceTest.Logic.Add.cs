@@ -21,8 +21,10 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
 
             this.storageBrokerMock.Setup(broker =>
             broker.InsertUserAsync(inputUser)).ReturnsAsync(storageUser);
+
              //when
              User actualUser=await this.userServise.AddUserAsync(inputUser);
+
             //then
             actualUser.Should().BeEquivalentTo(expected);
 
