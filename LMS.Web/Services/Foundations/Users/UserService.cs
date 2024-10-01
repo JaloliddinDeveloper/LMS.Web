@@ -5,6 +5,7 @@
 using LMS.Web.Brokers.Loggings;
 using LMS.Web.Brokers.Storages;
 using LMS.Web.Models.Foundations.Users;
+using LMS.Web.Services.Foundations.Users;
 
 namespace LMS.Web.Services.Foundations
 {

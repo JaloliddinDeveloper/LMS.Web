@@ -21,6 +21,10 @@ namespace LMS.Web.Services.Foundations
             {
                 throw CreateAndLogValidationException(nullUserException);
             }
+            catch (InvalidUserException invalidUserException)
+            {
+                throw CreateAndLogValidationException(invalidUserException);
+            }
         }
 
         private UserValidationException CreateAndLogValidationException(Xeption exception)

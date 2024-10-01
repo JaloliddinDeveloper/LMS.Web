@@ -2,12 +2,14 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-using LMS.Web.Models.Foundations.Users;
+using Xeptions;
 
-namespace LMS.Web.Services.Foundations
+namespace LMS.Web.Models.Foundations.Users.Exceptions
 {
-    public interface IUserService
+    public class InvalidUserException:Xeption
     {
-        ValueTask<User> AddUserAsync(User user);
+        public InvalidUserException(string message)
+            :base(message)
+        { }
     }
 }

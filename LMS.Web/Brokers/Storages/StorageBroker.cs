@@ -15,6 +15,7 @@ namespace LMS.Web.Brokers.Storages
             this.configuration = configuration;
             Database.Migrate();
         }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = 
