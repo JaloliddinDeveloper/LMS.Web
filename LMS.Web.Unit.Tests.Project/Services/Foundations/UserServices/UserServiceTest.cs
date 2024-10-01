@@ -40,7 +40,7 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
         {
             return new DateTimeRange( new DateTime()).GetValue();
         }
-        private Expression<Func<Exception, bool>> SameExeptionAs(Xeption expectedException)=>
+        private Expression<Func<Exception, bool>> SameExceptionAs(Xeption expectedException)=>
              actualException=> actualException.SameExceptionAs(expectedException);
         
         private Filler<User> CreateFilteredUser(DateTimeOffset date)

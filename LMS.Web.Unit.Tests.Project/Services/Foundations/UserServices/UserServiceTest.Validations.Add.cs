@@ -31,7 +31,7 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
             await Assert.ThrowsAsync<UserValidationException>(() => addUserTask.AsTask());
 
             this.loggingBrokerMock.Verify(broker=>
-            broker.LogError(It.Is(SameExeptionAs(expectedValidationException))),Times.Once());
+            broker.LogError(It.Is(SameExceptionAs(expectedValidationException))),Times.Once());
             this.storageBrokerMock.Verify(broker =>
             broker.InsertUserAsync(It.IsAny<User>()),Times.Never());
 
@@ -43,44 +43,61 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public async Task ShouldTrowValidationExceptionOnAddIfUserIsInvalidDataAndLogItAsync(string invalidData)
+        public async Task ShouldThrowValidationExceptionOnAddIfUserIsInvalidDataAndLogItAsync(string invalidData)
         {
-            //given 
-            var invalidUser = new User
+            // given
+            var invalidUser = new User()
             {
-                FirstName=invalidData
+                FirstName = invalidData
             };
-            var invalidUserException = new InvalidUserException(message: "User is invalid");
 
-            invalidUserException.AddData(key: nameof(User.Id), values: "Id is required");
-            invalidUserException.AddData(key: nameof(User.FirstName), values: "Text is required");
-            invalidUserException.AddData(key: nameof(User.LastName), values: "Text is required");
-            invalidUserException.AddData(key: nameof(User.LastName), values: "Text is required");
-            invalidUserException.AddData(key: nameof(User.Email), values: "Text is required");
-            invalidUserException.AddData(key: nameof(User.Password), values: "Text is required");
-           // invalidUserException.AddData(key: nameof(User.Role), values: "Role is required");
-            invalidUserException.AddData(key: nameof(User.CreatedDate), values: "Date is required");
-            invalidUserException.AddData(key: nameof(User.UpdatedDate), values: "Date is required");
+            var invalidUserException =
+                new InvalidUserException(message: "User is invalid");
 
-            var expectedUserValidationException = 
+            invalidUserException.AddData(key: nameof(User.Id),
+                values: "Id is required");
+
+            invalidUserException.AddData(key: nameof(User.FirstName),
+                values: "Text is required");
+
+
+            invalidUserException.AddData(key: nameof(User.LastName),
+                 values: "Text is required");
+
+            invalidUserException.AddData(key: nameof(User.Email),
+                 values: "Text is required");
+
+            invalidUserException.AddData(key: nameof(User.Password),
+                 values: "Text is required");
+
+            invalidUserException.AddData(key: nameof(User.CreatedDate),
+                 values: "Data is required");
+            invalidUserException.AddData(key: nameof(User.UpdatedDate),
+                 values: "Data is required");
+
+            var expectedUserValidationExpected =
                 new UserValidationException(
-                    message: "User error occurred,fix the errors and try again",
-                    innerException:invalidUserException);
+                    message: "User Validation error occurred,fix the errors and try again",
+                innerException: invalidUserException);
 
-            //when
-            ValueTask<User> addUser = this.userServise.AddUserAsync(invalidUser);
+            // when
+            ValueTask<User> addUser = 
+               this.userServise.AddUserAsync(invalidUser);
+
             UserValidationException actualUserValidationException =
-                 await Assert.ThrowsAsync<UserValidationException>(addUser.AsTask);
+                await Assert.ThrowsAsync<UserValidationException>(addUser.AsTask);
 
-            //then
-            actualUserValidationException.Should().BeEquivalentTo(expectedUserValidationException);
+            // then
+            actualUserValidationException.Should().BeEquivalentTo(expectedUserValidationExpected);
 
-            this.loggingBrokerMock.Verify(broker=>
-            broker.LogError(It.Is(SameExeptionAs(expectedUserValidationException))),
-            Times.Once());
+            this.loggingBrokerMock.Verify(broker =>
+              broker.LogError(It.Is(SameExceptionAs(expectedUserValidationExpected))),
+              Times.Once());
 
-            this.storageBrokerMock.Verify(broker=>
-            broker.InsertUserAsync(It.IsAny<User>()),Times.Never);
+            this.storageBrokerMock.Verify(broker =>
+              broker.InsertUserAsync(It.IsAny<User>()),
+              Times.Never);
+
             this.loggingBrokerMock.VerifyNoOtherCalls();
             this.storageBrokerMock.VerifyNoOtherCalls();
         }

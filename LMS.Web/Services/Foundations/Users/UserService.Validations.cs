@@ -44,18 +44,18 @@ namespace LMS.Web.Services.Foundations
         private static dynamic IsInvalid(DateTimeOffset date) => new
         {
             Condition = date ==default,
-            Message = "Date is required"
+            Message = "Data is required"
         };
-        private static void Validate(params(dynamic Rule,string Parameter)[]validations)
+        private static void Validate(params (dynamic Rule, string Parameter)[] validations)
         {
-            InvalidUserException invalidUserException = 
+            var invalidUserException =
                 new InvalidUserException(message: "User is invalid");
 
-            foreach((dynamic rule,string parametr) in validations)
+            foreach ((dynamic rule, string parameter) in validations)
             {
-                if(rule.Condition)
+                if (rule.Condition)
                 {
-                    invalidUserException.UpsertDataList(parametr, rule.message);
+                    invalidUserException.UpsertDataList(parameter, rule.Message);
                 }
             }
             invalidUserException.ThrowIfContainsErrors();

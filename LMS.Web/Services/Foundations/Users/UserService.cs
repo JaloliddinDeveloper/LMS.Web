@@ -25,7 +25,7 @@ namespace LMS.Web.Services.Foundations
         public  ValueTask<User> AddUserAsync(User user) =>
              TryCatch (async() =>
             {
-                ValidationUserNotNull(user);
+                ValidateUserOnAdd(user);
                 return await this.storageBroker.InsertUserAsync(user);
             });
     }
