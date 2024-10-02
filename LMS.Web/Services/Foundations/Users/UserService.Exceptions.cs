@@ -5,6 +5,7 @@
 using LMS.Web.Models.Foundations.Users.Exceptions;
 using LMS.Web.Models.Foundations.Users;
 using Xeptions;
+using Microsoft.Data.SqlClient;
 
 namespace LMS.Web.Services.Foundations
 {
@@ -25,6 +26,23 @@ namespace LMS.Web.Services.Foundations
             {
                 throw CreateAndLogValidationException(invalidUserException);
             }
+            catch(SqlException sqlException)
+            {
+                var failedUserStorageException =
+                    new FailedUserStorageException(
+                        "User storage error occurred,please contact support",
+                        innerException: sqlException);
+                throw CreateAndLogCriticalDependencyException(failedUserStorageException);
+            }
+        }
+
+        private UserDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
+        {
+           var userDependencyException =
+                new UserDependencyException("User dependency exception error occurred,please contact support",
+                innerException:exception);
+            this.loggingBroker.LogCritical(userDependencyException);
+            return userDependencyException;
         }
 
         private UserValidationException CreateAndLogValidationException(Xeption exception)

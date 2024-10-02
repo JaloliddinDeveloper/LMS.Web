@@ -21,7 +21,7 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
 
             var failedUserStorageException =
                 new FailedUserStorageException(
-                    message: "Failed User storage error occurred,pleace contact support",
+                    message: "User storage error occurred,please contact support",
                     innerException: sqlException);
 
             UserDependencyException expectedUserDependencyException =
