@@ -9,7 +9,7 @@ using LMS.Web.Services.Foundations.Users;
 
 namespace LMS.Web.Services.Foundations
 {
-    public partial class UserService: IUserService
+    public partial class UserService : IUserService
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
@@ -22,8 +22,8 @@ namespace LMS.Web.Services.Foundations
             this.loggingBroker = loggingBroker;
         }
 
-        public  ValueTask<User> AddUserAsync(User user) =>
-             TryCatch (async() =>
+        public ValueTask<User> AddUserAsync(User user) =>
+             TryCatch(async () =>
             {
                 ValidateUserOnAdd(user);
                 return await this.storageBroker.InsertUserAsync(user);

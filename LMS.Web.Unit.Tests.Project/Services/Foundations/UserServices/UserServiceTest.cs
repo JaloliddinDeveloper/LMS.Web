@@ -8,8 +8,10 @@ using LMS.Web.Models.Foundations.Users;
 using LMS.Web.Models.Foundations.Users.Exceptions;
 using LMS.Web.Services.Foundations;
 using LMS.Web.Services.Foundations.Users;
+using Microsoft.Data.SqlClient;
 using Moq;
 using System.Linq.Expressions;
+using System.Runtime.Serialization;
 using Tynamix.ObjectFiller;
 using Xeptions;
 
@@ -42,7 +44,11 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
         }
         private Expression<Func<Exception, bool>> SameExceptionAs(Xeption expectedException)=>
              actualException=> actualException.SameExceptionAs(expectedException);
-        
+
+        private static SqlException GetSqlException() =>
+            (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
+
+
         private Filler<User> CreateFilteredUser(DateTimeOffset date)
         {
            var filler=new Filler<User>();
