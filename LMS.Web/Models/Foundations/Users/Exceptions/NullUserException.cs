@@ -2,12 +2,13 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-using LMS.Web.Models.Foundations.Users;
+using Xeptions;
 
-namespace LMS.Web.Brokers.Storages
+namespace LMS.Web.Models.Foundations.Users.Exceptions
 {
-    public partial interface IStorageBroker
+    public class NullUserException:Xeption
     {
-        ValueTask<User> InsertUserAsync(User user);
+        public NullUserException(string message)
+            : base(message) { }
     }
 }

@@ -2,12 +2,14 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-namespace LMS.Web.Unit.Tests.Project
+using Xeptions;
+
+namespace LMS.Web.Models.Foundations.Users.Exceptions
 {
-    public class DeleteMe
+    public class InvalidUserException:Xeption
     {
-        [Fact]
-        public void ShouldBeTrue()=>
-            Assert.True(true);
+        public InvalidUserException(string message)
+            :base(message)
+        { }
     }
 }

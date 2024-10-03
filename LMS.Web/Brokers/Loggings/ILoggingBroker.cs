@@ -2,12 +2,11 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-using LMS.Web.Models.Foundations.Users;
-
-namespace LMS.Web.Brokers.Storages
+namespace LMS.Web.Brokers.Loggings
 {
-    public partial interface IStorageBroker
+    public interface ILoggingBroker
     {
-        ValueTask<User> InsertUserAsync(User user);
+        void LogError(Exception exception);
+        void LogCritical(Exception exception);
     }
 }
