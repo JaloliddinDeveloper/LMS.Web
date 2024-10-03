@@ -2,13 +2,11 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-using LMS.Web.Models.Foundations.Users;
-
-namespace LMS.Web.Brokers.Storages
+namespace LMS.Web.Brokers.DateTimes
 {
-    public partial interface IStorageBroker
+    public class DateTimeBroker: IDateTimeBroker
     {
-        ValueTask<User> InsertUserAsync(User user);
-        IQueryable<User> SelectAllUsers();
+        public DateTimeOffset GetCurrentDateTimeOffset() =>
+          DateTimeOffset.UtcNow;
     }
 }

@@ -2,6 +2,7 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
+using LMS.Web.Brokers.DateTimes;
 using LMS.Web.Brokers.Loggings;
 using LMS.Web.Brokers.Storages;
 using LMS.Web.Models.Foundations.Users;
@@ -13,13 +14,16 @@ namespace LMS.Web.Services.Foundations
     {
         private readonly IStorageBroker storageBroker;
         private readonly ILoggingBroker loggingBroker;
+        private readonly IDateTimeBroker dateTimeBroker;
 
         public UserService(
-            IStorageBroker storageBroker,
-            ILoggingBroker loggingBroker)
+            IStorageBroker storageBroker, 
+            ILoggingBroker loggingBroker, 
+            IDateTimeBroker dateTimeBroker)
         {
             this.storageBroker = storageBroker;
             this.loggingBroker = loggingBroker;
+            this.dateTimeBroker = dateTimeBroker;
         }
 
         public ValueTask<User> AddUserAsync(User user) =>
@@ -28,5 +32,10 @@ namespace LMS.Web.Services.Foundations
                 ValidateUserOnAdd(user);
                 return await this.storageBroker.InsertUserAsync(user);
             });
+
+        public IQueryable<User> RetrieveAllUsers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
