@@ -48,6 +48,8 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
         private static SqlException GetSqlException() =>
             (SqlException)FormatterServices.GetUninitializedObject(typeof(SqlException));
 
+        private static string GetRandomString()=>
+            new MnemonicString().GetValue().ToString();
 
         private Filler<User> CreateFilteredUser(DateTimeOffset date)
         {

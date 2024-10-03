@@ -6,6 +6,7 @@ using LMS.Web.Models.Foundations.Users.Exceptions;
 using LMS.Web.Models.Foundations.Users;
 using Xeptions;
 using Microsoft.Data.SqlClient;
+using EFxceptions.Models.Exceptions;
 
 namespace LMS.Web.Services.Foundations
 {
@@ -35,6 +36,8 @@ namespace LMS.Web.Services.Foundations
                 throw CreateAndLogCriticalDependencyException(failedUserStorageException);
             }
         }
+
+      
 
         private UserDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
         {
