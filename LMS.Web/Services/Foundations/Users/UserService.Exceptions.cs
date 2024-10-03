@@ -35,9 +35,25 @@ namespace LMS.Web.Services.Foundations
                         innerException: sqlException);
                 throw CreateAndLogCriticalDependencyException(failedUserStorageException);
             }
+            catch (DuplicateKeyException duplicateKeyException)
+            {
+                var alreadyExistUserException =
+                    new AlreadyExistUserException(
+                       message: "User already exist,please try again",
+                       innerException: duplicateKeyException);
+                throw CreateAndLogDublicateKeyExcption(alreadyExistUserException);
+            }
         }
 
-      
+        private UserDependencyValidationException CreateAndLogDublicateKeyExcption(Xeption exception)
+        {
+            var userDependencyValidationException =
+                 new UserDependencyValidationException(
+                     message: "User dependency error occurred,fix errors and try again",
+                     innerException: exception);
+            this.loggingBroker.LogError(userDependencyValidationException);
+            return userDependencyValidationException;
+        }
 
         private UserDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
         {
