@@ -2,11 +2,11 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-using LMS.Web.Models.Foundations.Users.Exceptions;
-using LMS.Web.Models.Foundations.Users;
-using Xeptions;
-using Microsoft.Data.SqlClient;
 using EFxceptions.Models.Exceptions;
+using LMS.Web.Models.Foundations.Users;
+using LMS.Web.Models.Foundations.Users.Exceptions;
+using Microsoft.Data.SqlClient;
+using Xeptions;
 
 namespace LMS.Web.Services.Foundations
 {
@@ -27,7 +27,7 @@ namespace LMS.Web.Services.Foundations
             {
                 throw CreateAndLogValidationException(invalidUserException);
             }
-            catch(SqlException sqlException)
+            catch (SqlException sqlException)
             {
                 var failedUserStorageException =
                     new FailedUserStorageException(
@@ -43,6 +43,24 @@ namespace LMS.Web.Services.Foundations
                        innerException: duplicateKeyException);
                 throw CreateAndLogDublicateKeyExcption(alreadyExistUserException);
             }
+            catch (Exception exception)
+            {
+                var failedUserServiceException =
+                    new FailedUserServiceException(
+                        message: "Unexpected error of user occured",
+                        innerException: exception);
+                throw CreateAndLogUserDependencyServiceErrorOccures(failedUserServiceException);
+            }
+        }
+
+        private UserDependencyServiceException CreateAndLogUserDependencyServiceErrorOccures(Xeption exception)
+        {
+            var userDependencyServiceException =
+                 new UserDependencyServiceException(
+                     message: "Unexpected service error occured,contact support",
+                     innerException: exception);
+            this.loggingBroker.LogError(userDependencyServiceException);
+            return userDependencyServiceException;
         }
 
         private UserDependencyValidationException CreateAndLogDublicateKeyExcption(Xeption exception)
@@ -57,9 +75,9 @@ namespace LMS.Web.Services.Foundations
 
         private UserDependencyException CreateAndLogCriticalDependencyException(Xeption exception)
         {
-           var userDependencyException =
-                new UserDependencyException("User dependency exception error occurred,please contact support",
-                innerException:exception);
+            var userDependencyException =
+                 new UserDependencyException("User dependency exception error occurred,please contact support",
+                 innerException: exception);
             this.loggingBroker.LogCritical(userDependencyException);
             return userDependencyException;
         }
