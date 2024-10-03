@@ -59,7 +59,7 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
             //given
             User someUser = CreateRandomUser();
             string someString = GetRandomString();
-            var duplicateKeyException = 
+            var duplicateKeyException =
                 new DuplicateKeyException(someString);
 
             var alreadyExistUserException =
@@ -72,12 +72,14 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
                     message: "User dependency error occurred,fix errors and try again",
                     innerException: alreadyExistUserException);
 
-            this.storageBrokerMock.Setup(broker=>
+            this.storageBrokerMock.Setup(broker =>
             broker.InsertUserAsync(someUser)).ThrowsAsync(duplicateKeyException);
+
             //when
-            ValueTask<User> addUserTask=this.userServise.AddUserAsync(someUser);
+            ValueTask<User> addUserTask = this.userServise.AddUserAsync(someUser);
             UserDependencyValidationException actualUserDependencyValidationException =
                 await Assert.ThrowsAnyAsync<UserDependencyValidationException>(addUserTask.AsTask);
+
             //then
             actualUserDependencyValidationException.Should().
                 BeEquivalentTo(expectedUserDependencyValidationException);
@@ -85,8 +87,44 @@ namespace LMS.Web.Unit.Tests.Project.Services.Foundations.UserServices
             this.storageBrokerMock.Verify(broker =>
             broker.InsertUserAsync(It.IsAny<User>()), Times.Once());
 
+            this.loggingBrokerMock.Verify(broker =>
+            broker.LogError(It.Is(SameExceptionAs(expectedUserDependencyValidationException))), Times.Once);
+
+            this.storageBrokerMock.VerifyNoOtherCalls();
+            this.loggingBrokerMock.VerifyNoOtherCalls();
+        }
+        [Fact]
+        public async Task ShouldThrowExceptionOnAddIfServiceErrorOccurs()
+        {
+            //given
+            User someUser = CreateRandomUser();
+            var exception = new Exception();
+            var failedUserServiceException =
+                new FailedUserServiceException(
+                    message: "Unexpected error of user occured",
+                    innerException: exception);
+
+            UserDependencyServiceException expectedUserDependencyServiceException =
+              new UserDependencyServiceException(
+                  message: "Unexpected service error occured,contact support",
+                  innerException: failedUserServiceException);
+
+            this.storageBrokerMock.Setup(broker=>
+            broker.InsertUserAsync(someUser)).ThrowsAsync(exception);
+
+            //when
+            ValueTask<User> addUserTask=this.userServise.AddUserAsync(someUser);
+            UserDependencyServiceException actualUserDependencyServiceException =
+               await Assert.ThrowsAsync<UserDependencyServiceException>(addUserTask.AsTask);
+
+            //then
+            actualUserDependencyServiceException.Should().
+                BeEquivalentTo(expectedUserDependencyServiceException);
+            this.storageBrokerMock.Verify(broker=>
+            broker.InsertUserAsync(It.IsAny<User>()),Times.Once);
+
             this.loggingBrokerMock.Verify(broker=>
-            broker.LogError(It.Is(SameExceptionAs(expectedUserDependencyValidationException))),Times.Once);
+            broker.LogError(It.Is(SameExceptionAs(expectedUserDependencyServiceException))),Times.Once);
 
             this.storageBrokerMock.VerifyNoOtherCalls();
             this.loggingBrokerMock.VerifyNoOtherCalls();
