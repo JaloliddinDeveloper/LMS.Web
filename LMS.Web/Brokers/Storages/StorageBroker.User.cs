@@ -14,10 +14,10 @@ namespace LMS.Web.Brokers.Storages
     {
         public DbSet<User> Users { get; set; }
 
-        public async ValueTask<User> InsertUserAsync(User user)=>
+        public async ValueTask<User> InsertUserAsync(User user) =>
              await InsertAsync(user);
 
-        public IQueryable<User> SelectAllUsers() =>
+        public async ValueTask<IQueryable<User>> SelectAllUsersAsync() =>
             SelectAll<User>();
     }
 }

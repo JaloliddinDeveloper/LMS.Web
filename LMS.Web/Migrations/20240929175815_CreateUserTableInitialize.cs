@@ -2,6 +2,7 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
