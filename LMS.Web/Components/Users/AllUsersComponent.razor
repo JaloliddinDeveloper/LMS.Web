@@ -1,0 +1,13 @@
+﻿@using LMS.Web.Models.Views.UserViews
+@using Syncfusion.Blazor.Grids
+
+<AddUserComponent @ref=AddUserComponent />
+
+<SfGrid DataSource=@UserViews
+        Toolbar=@ToolbarItems>
+
+    <GridEvents OnToolbarClick=ToolbarClickHandler
+                TValue=UserView />
+
+    <GridEditSettings AllowAdding="true" />
+</SfGrid>

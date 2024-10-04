@@ -5,7 +5,6 @@
 using EFxceptions.Models.Exceptions;
 using FluentAssertions;
 using LMS.Web.Models.Foundations.Users;
-using LMS.Web.Models.Foundations.Users.Exceptions;
 using Microsoft.Data.SqlClient;
 using Moq;
 

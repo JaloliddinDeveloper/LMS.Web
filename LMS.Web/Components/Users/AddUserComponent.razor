@@ -1,0 +1,43 @@
+﻿@using LMS.Web.Models.Views.UserViews
+@using Syncfusion.Blazor.Buttons
+@using Syncfusion.Blazor.DropDowns
+@using Syncfusion.Blazor.Inputs
+@using Syncfusion.Blazor.Popups
+
+@if (IsVisible)
+{
+    <SfDialog Width="250px" IsModal="true" Visible="IsVisible">
+        <DialogTemplates>
+            <Header>
+                <div>
+                    Add User
+                </div>
+            </Header>
+            <Content>
+
+                <SfTextBox @bind-Value=UserView.FirstName
+                           Placeholder="User First Name" />
+
+                <SfTextBox @bind-Value=UserView.LastName
+                           Placeholder="User Last Name" />
+
+                <SfTextBox @bind-Value=UserView.Email
+                           Placeholder="Email" />
+
+                <SfDropDownList @bind-Value=UserView.Role
+                                TValue=ViewRole
+                                TItem=string
+                                Placeholder="Role" />
+
+            </Content>
+            <FooterTemplate>
+                <SfButton OnClick=@CreateUserViewAsync>
+                    Save
+                </SfButton>
+                <SfButton OnClick=@HideDialog>
+                    Cancel
+                </SfButton>
+            </FooterTemplate>
+        </DialogTemplates>
+    </SfDialog>
+}

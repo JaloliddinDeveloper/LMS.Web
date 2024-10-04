@@ -2,16 +2,17 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
+using LMS.Web;
 using LMS.Web.Brokers.DateTimes;
 using LMS.Web.Brokers.Loggings;
 using LMS.Web.Brokers.Storages;
-using LMS.Web.Components;
 using LMS.Web.Services.Foundations;
 using LMS.Web.Services.Foundations.Users;
 using LMS.Web.Services.Views.UserViews;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Syncfusion.Blazor;
 
 public class Program
 {
@@ -21,6 +22,11 @@ public class Program
 
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
+
+        builder.Services.AddSyncfusionBlazor();
+        Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("YOUR_LICENSE_KEY");
+
+
         RegisterBrokers(builder);
         RegisterFoundations(builder);
         RegisterViews(builder);
