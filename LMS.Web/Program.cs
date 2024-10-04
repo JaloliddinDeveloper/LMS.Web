@@ -2,6 +2,7 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
+using LMS.Web.Brokers.DateTimes;
 using LMS.Web.Brokers.Loggings;
 using LMS.Web.Brokers.Storages;
 using LMS.Web.Components;
@@ -20,6 +21,8 @@ public class Program
         builder.Services.AddTransient<IStorageBroker, StorageBroker>();
         builder.Services.AddTransient<IUserService, UserService>();
         builder.Services.AddTransient<ILoggingBroker, LoggingBroker>();
+        builder.Services.AddTransient<IDateTimeBroker,DateTimeBroker >();
+
 
         var app = builder.Build();
         if (!app.Environment.IsDevelopment())
