@@ -3,15 +3,14 @@
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
 
-using System.Linq;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using LMS.Web.Models.Foundations.Users;
+using LMS.Web.Models.Views.UserViews;
 
-namespace LMS.Web.Services.Foundations.Users
+namespace LMS.Web.Services.Views.UserViews
 {
-    public interface IUserService
+    public interface IUserViewService
     {
-        ValueTask<User> AddUserAsync(User user);
-        ValueTask<IQueryable<User>> RetrieveAllUsersAsync();
+        ValueTask<List<UserView>> RetrieveAllUserViewsAsync();
     }
 }

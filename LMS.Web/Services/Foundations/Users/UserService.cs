@@ -20,8 +20,8 @@ namespace LMS.Web.Services.Foundations
         private readonly IDateTimeBroker dateTimeBroker;
 
         public UserService(
-            IStorageBroker storageBroker, 
-            ILoggingBroker loggingBroker, 
+            IStorageBroker storageBroker,
+            ILoggingBroker loggingBroker,
             IDateTimeBroker dateTimeBroker)
         {
             this.storageBroker = storageBroker;
@@ -29,15 +29,10 @@ namespace LMS.Web.Services.Foundations
             this.dateTimeBroker = dateTimeBroker;
         }
 
-        public ValueTask<User> AddUserAsync(User user) =>
-        TryCatch(async () =>
-        {
-            ValidateUserOnAdd(user);
+        public async ValueTask<User> AddUserAsync(User user) =>
+            await this.storageBroker.InsertUserAsync(user);
 
-            return await this.storageBroker.InsertUserAsync(user);
-        });
-
-        public IQueryable<User> RetrieveAllUsers()=>
-            this.storageBroker.SelectAllUsers();  
+        public async ValueTask<IQueryable<User>> RetrieveAllUsersAsync() =>
+            await this.storageBroker.SelectAllUsersAsync();
     }
 }

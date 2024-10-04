@@ -8,6 +8,7 @@ using LMS.Web.Brokers.Storages;
 using LMS.Web.Components;
 using LMS.Web.Services.Foundations;
 using LMS.Web.Services.Foundations.Users;
+using LMS.Web.Services.Views.UserViews;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,12 +21,9 @@ public class Program
 
         builder.Services.AddRazorComponents()
             .AddInteractiveServerComponents();
-
-        builder.Services.AddTransient<IStorageBroker, StorageBroker>();
-        builder.Services.AddTransient<ILoggingBroker, LoggingBroker>();
-        builder.Services.AddTransient<IDateTimeBroker,DateTimeBroker >();
-        builder.Services.AddTransient<IUserService, UserService>();
-
+        RegisterBrokers(builder);
+        RegisterFoundations(builder);
+        RegisterViews(builder);
 
         var app = builder.Build();
         if (!app.Environment.IsDevelopment())
@@ -42,5 +40,22 @@ public class Program
             .AddInteractiveServerRenderMode();
 
         app.Run();
+    }
+
+    private static void RegisterViews(WebApplicationBuilder builder)
+    {
+        builder.Services.AddTransient<IUserViewService, UserViewService>();
+    }
+
+    private static void RegisterFoundations(WebApplicationBuilder builder)
+    {
+        builder.Services.AddTransient<IUserService, UserService>();
+    }
+
+    private static void RegisterBrokers(WebApplicationBuilder builder)
+    {
+        builder.Services.AddTransient<IStorageBroker, StorageBroker>();
+        builder.Services.AddTransient<ILoggingBroker, LoggingBroker>();
+        builder.Services.AddTransient<IDateTimeBroker, DateTimeBroker>();
     }
 }
