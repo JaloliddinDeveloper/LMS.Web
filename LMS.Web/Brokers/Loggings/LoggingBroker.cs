@@ -3,6 +3,9 @@
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
 
+using System;
+using Microsoft.Extensions.Logging;
+
 namespace LMS.Web.Brokers.Loggings
 {
     public class LoggingBroker: ILoggingBroker

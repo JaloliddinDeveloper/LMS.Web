@@ -2,6 +2,8 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
+using System;
+using System.Threading.Tasks;
 using EFxceptions.Models.Exceptions;
 using LMS.Web.Models.Foundations.Users;
 using LMS.Web.Models.Foundations.Users.Exceptions;
@@ -59,7 +61,9 @@ namespace LMS.Web.Services.Foundations
                  new UserDependencyServiceException(
                      message: "Unexpected service error occured,contact support",
                      innerException: exception);
+
             this.loggingBroker.LogError(userDependencyServiceException);
+
             return userDependencyServiceException;
         }
 
@@ -69,7 +73,9 @@ namespace LMS.Web.Services.Foundations
                  new UserDependencyValidationException(
                      message: "User dependency error occurred,fix errors and try again",
                      innerException: exception);
+
             this.loggingBroker.LogError(userDependencyValidationException);
+
             return userDependencyValidationException;
         }
 
@@ -78,7 +84,9 @@ namespace LMS.Web.Services.Foundations
             var userDependencyException =
                  new UserDependencyException("User dependency exception error occurred,please contact support",
                  innerException: exception);
+
             this.loggingBroker.LogCritical(userDependencyException);
+
             return userDependencyException;
         }
 

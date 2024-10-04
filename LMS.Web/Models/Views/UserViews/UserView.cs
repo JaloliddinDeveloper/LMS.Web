@@ -3,8 +3,9 @@
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
 
-namespace LMS.Web.Brokers.Storages
+namespace LMS.Web.Models.Views.UserViews
 {
-    public partial interface IStorageBroker
-    { }
+    public class UserView
+    {
+    }
 }

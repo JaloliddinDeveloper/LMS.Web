@@ -2,6 +2,9 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
+
+using System.Linq;
+using System.Threading.Tasks;
 using LMS.Web.Brokers.DateTimes;
 using LMS.Web.Brokers.Loggings;
 using LMS.Web.Brokers.Storages;
@@ -27,11 +30,12 @@ namespace LMS.Web.Services.Foundations
         }
 
         public ValueTask<User> AddUserAsync(User user) =>
-             TryCatch(async () =>
-            {
-                ValidateUserOnAdd(user);
-                return await this.storageBroker.InsertUserAsync(user);
-            });
+        TryCatch(async () =>
+        {
+            ValidateUserOnAdd(user);
+
+            return await this.storageBroker.InsertUserAsync(user);
+        });
 
         public IQueryable<User> RetrieveAllUsers()=>
             this.storageBroker.SelectAllUsers();  
