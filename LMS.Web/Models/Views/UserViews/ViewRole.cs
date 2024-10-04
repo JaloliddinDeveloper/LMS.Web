@@ -2,14 +2,13 @@
 // Copyright (c) Coalition Of Good-Hearted Engineers
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
-using Xeptions;
 
-namespace LMS.Web.Models.Foundations.Users.Exceptions
+namespace LMS.Web.Models.Views.UserViews
 {
-    public class InvalidUserException:Xeption
+    public enum ViewRole
     {
-        public InvalidUserException(string message)
-            :base(message)
-        { }
+        Admin,
+        Teacher,
+        Student
     }
 }
