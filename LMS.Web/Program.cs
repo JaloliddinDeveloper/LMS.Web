@@ -8,6 +8,9 @@ using LMS.Web.Brokers.Storages;
 using LMS.Web.Components;
 using LMS.Web.Services.Foundations;
 using LMS.Web.Services.Foundations.Users;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 public class Program
 {
@@ -19,9 +22,9 @@ public class Program
             .AddInteractiveServerComponents();
 
         builder.Services.AddTransient<IStorageBroker, StorageBroker>();
-        builder.Services.AddTransient<IUserService, UserService>();
         builder.Services.AddTransient<ILoggingBroker, LoggingBroker>();
         builder.Services.AddTransient<IDateTimeBroker,DateTimeBroker >();
+        builder.Services.AddTransient<IUserService, UserService>();
 
 
         var app = builder.Build();
