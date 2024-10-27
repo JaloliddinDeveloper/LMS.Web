@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LMS.Web.Brokers.DateTimes;
+using LMS.Web.Migrations;
 using LMS.Web.Models.Foundations.Users;
 using LMS.Web.Models.Views.UserViews;
 using LMS.Web.Services.Foundations.Users;
@@ -45,6 +46,15 @@ namespace LMS.Web.Services.Views.UserViews
                 await this.userService.AddUserAsync(user);
 
             return MapToUserView(addedUser);
+        }
+
+
+        public async ValueTask<UserView> RetrieveUserViewByIdAsync(Guid userId)
+        {
+            User user = await this.userService
+                .RetrieveUserByIdAsync(userId);
+
+            return MapToUserView(user);
         }
 
         private static async ValueTask<List<UserView>> MapUsersToUserViewsAsync(

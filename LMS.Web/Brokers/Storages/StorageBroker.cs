@@ -34,6 +34,7 @@ namespace LMS.Web.Brokers.Storages
             await broker.SaveChangesAsync();
             return @object;
         }
+
         private IQueryable<T> SelectAll<T>() where T : class
         {
             using var broker = new StorageBroker(this.configuration);

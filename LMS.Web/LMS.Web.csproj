@@ -18,6 +18,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="PrettyBlazor" Version="1.2.0" />
     <PackageReference Include="Syncfusion.Blazor" Version="27.1.51" />
     <PackageReference Include="Syncfusion.Blazor.Themes" Version="27.1.51" />
     <PackageReference Include="Xeption" Version="2.8.0" />

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using LMS.Web.Models.Views.UserViews;
 using LMS.Web.Services.Views.UserViews;
 using Microsoft.AspNetCore.Components;
+using Syncfusion.Blazor.Grids;
 using Syncfusion.Blazor.Navigations;
 
 namespace LMS.Web.Components.Users
@@ -19,7 +20,8 @@ namespace LMS.Web.Components.Users
         public IUserViewService UserViewService { get; set; }
 
         public List<UserView> UserViews { get; set; }
-        public AddUserComponent AddUserComponent { get; set; }
+        public SfGrid<UserView> Grid { get; set; }
+        public AddUserDialogComponent AddUserDialogComponent { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -27,19 +29,22 @@ namespace LMS.Web.Components.Users
                 await this.UserViewService
                     .RetrieveAllUserViewsAsync();
 
-            this.AddUserComponent.ShowDialog();
-
             this.StateHasChanged();
         }
 
-        public void ToolbarClickHandler(ClickEventArgs args)
-        {
-            if (args.Item.Text == "Add")
-            {
-                this.AddUserComponent.ShowDialog();
-            }
-        }
+        private void ShowAddDialog() =>
+            this.AddUserDialogComponent.ShowDialog();
 
-        public string[] ToolbarItems = new string[] { "Add", "Edit", "Delete", "Update", "Cancel" };
+        private async Task AddCreatedUserToGridAsync(UserView userView)
+        {
+            UserView retrievedUserView =
+                await this.UserViewService.RetrieveUserViewByIdAsync
+                    (userView.Id);
+
+            this.UserViews.Add(retrievedUserView);
+
+            await this.Grid.Refresh();
+            StateHasChanged();
+        }
     }
 }

@@ -1,13 +1,21 @@
 ﻿@using LMS.Web.Models.Views.UserViews
+@using Syncfusion.Blazor.Buttons
 @using Syncfusion.Blazor.Grids
 
-<AddUserComponent @ref=AddUserComponent />
+<div>
+    <SfButton OnClick=@ShowAddDialog>
+                        Create
+                    </SfButton>
+</div>
+<div>
+    <SfGrid @ref=Grid DataSource=@UserViews>
 
-<SfGrid DataSource=@UserViews
-        Toolbar=@ToolbarItems>
+        <GridEvents TValue=UserView />
 
-    <GridEvents OnToolbarClick=ToolbarClickHandler
-                TValue=UserView />
+        <GridEditSettings />
+    </SfGrid>
+</div>
 
-    <GridEditSettings AllowAdding="true" />
-</SfGrid>
+<AddUserDialogComponent @ref=AddUserDialogComponent 
+                        OnCreateUser=AddCreatedUserToGridAsync />
+

@@ -3,6 +3,7 @@
 // Free To Use To Find Comfort And Peace
 //--------------------------------------------------
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using LMS.Web.Brokers.DateTimes;
@@ -34,5 +35,13 @@ namespace LMS.Web.Services.Foundations
 
         public async ValueTask<IQueryable<User>> RetrieveAllUsersAsync() =>
             await this.storageBroker.SelectAllUsersAsync();
+
+        public async ValueTask<User> RetrieveUserByIdAsync(Guid userId)
+        {
+            IQueryable<User> users = 
+                await this.storageBroker.SelectAllUsersAsync();
+
+            return users.FirstOrDefault(user => user.Id == userId);
+        }
     }
 }
